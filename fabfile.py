@@ -1,5 +1,6 @@
 import datetime
 from fabric.operations import local, run
+from fabric.context_managers import cd, lcd
 
 def deploy():
     local("cp -fR app/* deploy/")
