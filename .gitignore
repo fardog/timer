@@ -1,2 +1,6 @@
 .sass-cache/
 javascripts/vendor/*/
+
+*.pyo
+*.pyc
+fabconfig.py
