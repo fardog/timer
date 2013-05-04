@@ -1,8 +1,8 @@
 Timer
 =====
 
-Timer is a small HTML5 application that allows you to create multiple countdown 
-timers. Good for timing your tea and hard boiled eggs simultaneously.
+*Timer* is a small HTML5 application that allows you to create multiple 
+countdown timers. Good for timing your tea and hard boiled eggs simultaneously.
 
 License
 -------

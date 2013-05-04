@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Timer</title>
+
+    {% for css in jinjaconfig.css %}
+    <link rel="stylesheet" href="{{ css }}" />
+    {% endfor %}
+
+    {% for javascript in jinjaconfig.javascripts_header %}
+    <script src="{{ javascript }}"></script>
+    {% endfor %}
+
+</head>
+<body>
+
+    <div class="row">
+        <div class="large-8 columns centered">
+            <h1>Timer</h1>
+        </div>
+    </div>
+
+    <div id="timers">
+
+    </div>
+    
+    <div class="row controls">
+        <hr/>
+        <div class="large-4 columns large-centered">
+            <form id="add-timer">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>Time</label>
+                        <input type="text" id="time" placeholder="Time, e.g. '4 minutes 10 seconds'" />
+                        <input type="submit" id="addTimer" class="button" value="Add Timer" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% for javascript in jinjaconfig.javascripts_footer %}
+    <script src="{{ javascript }}"></script>
+    {% endfor %}
+    </body>
+</html>

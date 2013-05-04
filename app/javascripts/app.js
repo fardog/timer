@@ -1,3 +1,5 @@
+$(document).foundation();
+
 // SINE WAVE
 var sine = []; 
 for (var i=0; i<10000; i++) sine[i] = 128+Math.round(127*Math.sin(i/5));
