@@ -1,9 +1,7 @@
 $(document).foundation();
 
-// SINE WAVE
-var sine = []; 
-for (var i=0; i<10000; i++) sine[i] = 128+Math.round(127*Math.sin(i/5));
-var sinewave = new RIFFWAVE(sine);
+var COLUMN_VALUE = 4;
+var COLUMN_TOTAL = 12;
 
 /* leadingZero: put zeroes in front of decimal values that are less than ten */
 function leadingZero(value) {
@@ -20,19 +18,22 @@ function setTimerDisplay(timer, seconds) {
         var minutes = Math.floor(seconds / 60); 
         text = leadingZero(Math.floor(seconds / 60)) + ":" 
             + leadingZero(seconds % 60);
+        timer.find("h2").text(text);
     }
     else { // if we've exhausted our time
-        // create our alarm audio, and append it to the timer
-        var audio = new Audio(sinewave.dataURI);
-        timer.append(audio);
-        audio.play();
+        timer.find("audio").get(0).play();
 
         //set various styles and text
         text = "Done!"; 
-        timer.find("a.cancel").text("Dismiss");
+        var panel = timer.find(".panel");
+        panel.animate( { backgroundColor: "#31ff3f" }, 1000);
+        var cancel_button = timer.find("a.cancel");
+        cancel_button.text("Dismiss");
+        cancel_button.addClass("large success expand");
+        timer.find("h2").remove();
     }
 
-    timer.find("h2").text(text);
+    
 }
 
 /* addTimerToDOM: take a timer, and add it to the DOM creating new rows
@@ -105,6 +106,7 @@ $(document).ready(function() {
             canceled: false,
             cancel: function(self) {
                 var parent_row = self.parent();
+                self.find("audio").get(0).pause();
                 self.data('tf').canceled = true; 
                 self.fadeOut(400, function() { 
                     self.remove(); 
@@ -128,7 +130,8 @@ $(document).ready(function() {
                        'class': "small cancel button" }).click(function(e) {
                 e.preventDefault();
                 timer.data('tf').cancel(timer);
-            })
+            }),
+            $("<audio>", { 'src': "assets/sounds/78562__joedeshon__alarm-clock-ringing-01.wav" })
         );
         addTimerToDOM(timer);
     });
