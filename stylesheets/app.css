@@ -5840,39 +5840,52 @@ a.th {
 }
 
 /* line 1, ../../sass/_timer.scss */
-form {
-  margin-top: 2em;
+header {
+  margin-top: 1em !important;
+}
+/* line 4, ../../sass/_timer.scss */
+header h1 {
+  width: 1em;
+  height: 1em;
+  background: url(/assets/images/fzap_clock_sportstudio_design.svg) top left no-repeat;
+  background-size: 1em 1em;
+  text-indent: -9999px;
+  margin: 0;
+}
+/* line 12, ../../sass/_timer.scss */
+header form {
+  margin-top: 0.3em;
 }
 
-/* line 6, ../../sass/_timer.scss */
+/* line 18, ../../sass/_timer.scss */
 #timers [class*="column"]:last-child {
   float: left;
 }
 
-/* line 11, ../../sass/_timer.scss */
+/* line 23, ../../sass/_timer.scss */
 footer {
   text-align: right;
   color: #eee;
 }
-/* line 15, ../../sass/_timer.scss */
+/* line 27, ../../sass/_timer.scss */
 footer hr {
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid white;
   margin-bottom: 0;
 }
-/* line 21, ../../sass/_timer.scss */
+/* line 33, ../../sass/_timer.scss */
 footer p {
   margin-top: 0.2em;
 }
-/* line 24, ../../sass/_timer.scss */
+/* line 36, ../../sass/_timer.scss */
 footer p a {
   color: #ddd;
 }
-/* line 28, ../../sass/_timer.scss */
+/* line 40, ../../sass/_timer.scss */
 footer p a:hover {
   color: #ccc;
 }
-/* line 33, ../../sass/_timer.scss */
+/* line 45, ../../sass/_timer.scss */
 footer #location {
   display: none;
 }

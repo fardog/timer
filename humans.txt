@@ -10,3 +10,5 @@
 /* ACKNOWLEDGEMENTS */
   Alarm Clock Sound by joedeshon
     http://www.freesound.org/people/joedeshon/sounds/78562/
+  Clock Icon by fzap
+    http://openclipart.org/detail/16605/clock-sportstudio-design-by-fzap
