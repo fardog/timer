@@ -1,0 +1,30 @@
+form {
+    margin-top: 2em;
+}
+
+footer {
+    text-align: right;
+    color: #eee;
+
+    hr {
+        border-top: 1px solid #eeeeee;
+        border-bottom: 1px solid #ffffff;
+        margin-bottom: 0;
+    }
+
+    p {
+        margin-top: 0.2em;
+
+        a {
+            color: #ddd;
+        }
+
+        a:hover {
+            color: #ccc;
+        }
+    }
+
+    #location {
+        display: none;
+    }
+}
