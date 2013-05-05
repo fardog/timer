@@ -21,7 +21,7 @@ function setTimerDisplay(timer, seconds) {
         timer.find("h2").text(text);
     }
     else { // if we've exhausted our time
-        timer.find("audio").get(0).play();
+        timer.data('tf').sound.play();
 
         //set various styles and text
         text = "Done!"; 
@@ -44,7 +44,7 @@ function addTimerToDOM(timer) {
     var last_row = timers.children(":last");
     
     if (last_row.length) {
-        if (last_row.children().length > 1) {
+        if (last_row.children().length * COLUMN_VALUE >= COLUMN_TOTAL) {
             timers.append(
                     $("<div>", { 'class': "row" }).append(timer)
             );
@@ -68,24 +68,34 @@ function reorganizeTimers() {
     var timers = $("#timers");
 
     timers.children().each(function () {
-        if ($(this).children().length < 2) {
+        if ($(this).children().length * COLUMN_VALUE < COLUMN_TOTAL) {
             var next_row = $(this).next();
             if (next_row.children().length > 0) {
                 var next_element = next_row.children(":first");
                 next_element.detach();
                 $(this).append(next_element);
             }
+            if (next_row.children().length < 1) {
+                next_row.remove();
+            }
         }
     });
 }
 
 $(document).ready(function() {
+    $("#time").focus();
+
+    //Load our alarm sound
+    var alarmSound = new Audio();
+    alarmSound.src = "assets/sounds/78562__joedeshon__alarm-clock-ringing-01.wav";
+    alarmSound.load();
+
     $("#add-timer").submit(function(e) {
         e.preventDefault();
         var rawInput = $(this).find("input:text").val();
         var time = juration.parse(rawInput); 
 
-        var timer = $('<div>', { 'class': "timer large-6 columns" }).append( 
+        var timer = $('<div>', { 'class': "timer large-" + COLUMN_VALUE + " columns" }).append( 
             $('<div>', { 'class': "panel" }).append(
                 $('<h2>', { 'text': time })
             )
@@ -106,7 +116,7 @@ $(document).ready(function() {
             canceled: false,
             cancel: function(self) {
                 var parent_row = self.parent();
-                self.find("audio").get(0).pause();
+                self.data('tf').sound.pause();
                 self.data('tf').canceled = true; 
                 self.fadeOut(400, function() { 
                     self.remove(); 
@@ -115,7 +125,8 @@ $(document).ready(function() {
                 });
             },
             snooze: function(self) {
-            }
+            },
+            sound: alarmSound.cloneNode(true)
         });
 
         // set initial display and start timer
@@ -130,8 +141,7 @@ $(document).ready(function() {
                        'class': "small cancel button" }).click(function(e) {
                 e.preventDefault();
                 timer.data('tf').cancel(timer);
-            }),
-            $("<audio>", { 'src': "assets/sounds/78562__joedeshon__alarm-clock-ringing-01.wav" })
+            })
         );
         addTimerToDOM(timer);
     });
