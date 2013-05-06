@@ -4,7 +4,7 @@ css = [
         ]
 
 javascripts_header = [
-        "javascripts/vendor/custom.modernizr.js",
+        "javascripts/vendor/modernizr.custom.28864.js",
         ]
 
 javascripts_footer = [
