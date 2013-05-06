@@ -91,20 +91,32 @@ $(document).ready(function() {
     //Load our alarm sound
     var alarmSound = new Audio();
     alarmSound.src = Modernizr.audio.ogg ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.ogg' :
-                Modernizr.audio.mp3 ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.mp3' :
-                                      'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.m4a';
+        Modernizr.audio.mp3 ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.mp3' :
+            'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.m4a';
     alarmSound.load();
 
     $("#add-timer").submit(function(e) {
         e.preventDefault();
-        var rawInput = $(this).find("input:text").val();
+        var textInput = $(this).find("input:text"); 
+        var rawInput = textInput.val();
 
         try {
             var time = juration.parse(rawInput); 
         }
         catch (e) {
-            alert("Didn't understand your input.");
+            if (!textInput.parent().hasClass("error")) {
+                textInput.parent().addClass("error");
+                textInput.parent().append(
+                    $("<small>", { 'text': "Your time wasn't understood." })    
+                );
+            }
             return;
+        }
+
+        // Remove the error state if there is one, we were successful this time
+        if (textInput.parent().hasClass("error")) { 
+            textInput.parent().removeClass("error"); 
+            textInput.parent().children("small").remove();
         }
 
         var timer = $('<div>', { 'class': "timer large-" + COLUMN_VALUE + " columns" }).append( 
