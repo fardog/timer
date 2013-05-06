@@ -22,34 +22,46 @@ header {
     }
 }
 
-#timers {
-    [class*="column"]:last-child {
-        float: left;
-    }
-    
-    .large-4 {
-        padding-bottom: gridCalc(4, $total-columns);
+@media only screen and (min-width: 48em) {
 
-        div {
-            position: absolute;
-            margin-top: 5%;
-            width: 90%;
-            height: 90%;
+    #timers {
+        [class*="column"]:last-child {
+            float: left;
+        }
 
-            h2 {
-                margin-top: 10%;
-                text-align: center;
-                font-size: 7vw;
-            }
+        .large-4 {
+            padding-bottom: gridCalc(4, $total-columns);
 
-            .success {
-                width: 100%;
-                height: 100%;
-                padding-top: 45%;
+            div {
+                position: absolute;
+                margin-top: 5%;
+                width: 90%;
+                height: 90%;
+
+                h2 {
+                    margin-top: 10%;
+                    text-align: center;
+                    font-size: 7vw;
+                }
+
+                .success {
+                    width: 100%;
+                    height: 100%;
+                    padding-top: 45%;
+                }
             }
         }
+    } 
+}
+
+@media only screen and (max-width: 48em) {
+    #timers {
+        h2 {
+            font-size: 3em;
+            text-align: center;
+        }
     }
-} 
+}
 
 footer {
     text-align: right;
