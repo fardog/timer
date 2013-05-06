@@ -90,7 +90,9 @@ $(document).ready(function() {
 
     //Load our alarm sound
     var alarmSound = new Audio();
-    alarmSound.src = "assets/sounds/78562__joedeshon__alarm-clock-ringing-01.wav";
+    alarmSound.src = Modernizr.audio.ogg ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.ogg' :
+                Modernizr.audio.mp3 ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.mp3' :
+                                      'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.m4a';
     alarmSound.load();
 
     $("#add-timer").submit(function(e) {
