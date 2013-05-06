@@ -135,10 +135,10 @@ $(document).ready(function() {
             timer.data('tf').method(timer);
         }, 1000);
 
-        timer.find(".panel").append(
+        timer.children("div").append(
             $("<a>", { 'text': "Cancel", 
                        'href': "#",
-                       'class': "small cancel button" }).click(function(e) {
+                       'class': "large cancel button expand" }).click(function(e) {
                 e.preventDefault();
                 timer.data('tf').cancel(timer);
             })

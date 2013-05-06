@@ -18,6 +18,23 @@ header {
     [class*="column"]:last-child {
         float: left;
     }
+    
+    .large-4 {
+        padding-bottom: gridCalc(4, $total-columns);
+
+        div {
+            position: absolute;
+            margin-top: 5%;
+            width: 90%;
+            height: 90%;
+            padding-top: 15%;
+
+            h2 {
+                text-align: center;
+                font-size: 7vw;
+            }
+        }
+    }
 } 
 
 footer {

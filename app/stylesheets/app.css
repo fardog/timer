@@ -5861,31 +5861,48 @@ header form {
 #timers [class*="column"]:last-child {
   float: left;
 }
+/* line 22, ../../sass/_timer.scss */
+#timers .large-4 {
+  padding-bottom: 33.33333%;
+}
+/* line 25, ../../sass/_timer.scss */
+#timers .large-4 div {
+  position: absolute;
+  margin-top: 5%;
+  width: 90%;
+  height: 90%;
+  padding-top: 15%;
+}
+/* line 32, ../../sass/_timer.scss */
+#timers .large-4 div h2 {
+  text-align: center;
+  font-size: 7vw;
+}
 
-/* line 23, ../../sass/_timer.scss */
+/* line 40, ../../sass/_timer.scss */
 footer {
   text-align: right;
   color: #eee;
 }
-/* line 27, ../../sass/_timer.scss */
+/* line 44, ../../sass/_timer.scss */
 footer hr {
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid white;
   margin-bottom: 0;
 }
-/* line 33, ../../sass/_timer.scss */
+/* line 50, ../../sass/_timer.scss */
 footer p {
   margin-top: 0.2em;
 }
-/* line 36, ../../sass/_timer.scss */
+/* line 53, ../../sass/_timer.scss */
 footer p a {
   color: #ddd;
 }
-/* line 40, ../../sass/_timer.scss */
+/* line 57, ../../sass/_timer.scss */
 footer p a:hover {
   color: #ccc;
 }
-/* line 45, ../../sass/_timer.scss */
+/* line 62, ../../sass/_timer.scss */
 footer #location {
   display: none;
 }
