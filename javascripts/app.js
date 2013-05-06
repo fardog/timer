@@ -42,6 +42,9 @@ function setTimerDisplay(timer, seconds) {
 function addTimerToDOM(timer) {
     var timers = $("#timers");
     var last_row = timers.children(":last");
+
+    var intro = $("#intro");
+    if (intro.length) intro.remove();
     
     if (last_row.length) {
         if (last_row.children().length * COLUMN_VALUE >= COLUMN_TOTAL) {
@@ -93,7 +96,14 @@ $(document).ready(function() {
     $("#add-timer").submit(function(e) {
         e.preventDefault();
         var rawInput = $(this).find("input:text").val();
-        var time = juration.parse(rawInput); 
+
+        try {
+            var time = juration.parse(rawInput); 
+        }
+        catch (e) {
+            alert("Didn't understand your input.");
+            return;
+        }
 
         var timer = $('<div>', { 'class': "timer large-" + COLUMN_VALUE + " columns" }).append( 
             $('<div>', { 'class': "panel" }).append(
@@ -135,10 +145,10 @@ $(document).ready(function() {
             timer.data('tf').method(timer);
         }, 1000);
 
-        timer.find(".panel").append(
+        timer.children("div").append(
             $("<a>", { 'text': "Cancel", 
                        'href': "#",
-                       'class': "small cancel button" }).click(function(e) {
+                       'class': "large cancel button expand" }).click(function(e) {
                 e.preventDefault();
                 timer.data('tf').cancel(timer);
             })

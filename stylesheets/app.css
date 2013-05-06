@@ -19,7 +19,7 @@ body {
   color: #222222;
   padding: 0;
   margin: 0;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "Ubuntu", sans-serif;
   font-weight: normal;
   font-style: normal;
   line-height: 1;
@@ -1709,7 +1709,7 @@ p aside {
 /* Default header styles */
 /* line 176, ../../../../../../../var/lib/gems/1.9.1/gems/zurb-foundation-4.1.5/scss/foundation/components/_type.scss */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-family: "Ubuntu", sans-serif;
   font-weight: bold;
   font-style: normal;
   color: #222222;
@@ -5857,35 +5857,75 @@ header form {
   margin-top: 0.3em;
 }
 
-/* line 18, ../../sass/_timer.scss */
-#timers [class*="column"]:last-child {
-  float: left;
+/* line 17, ../../sass/_timer.scss */
+#intro {
+  text-align: center;
+}
+/* line 20, ../../sass/_timer.scss */
+#intro h2 {
+  margin-bottom: 0;
 }
 
-/* line 23, ../../sass/_timer.scss */
+@media only screen and (min-width: 48em) {
+  /* line 28, ../../sass/_timer.scss */
+  #timers [class*="column"]:last-child {
+    float: left;
+  }
+  /* line 32, ../../sass/_timer.scss */
+  #timers .large-4 {
+    padding-bottom: 33.33333%;
+  }
+  /* line 35, ../../sass/_timer.scss */
+  #timers .large-4 div {
+    position: absolute;
+    margin-top: 5%;
+    width: 90%;
+    height: 90%;
+  }
+  /* line 41, ../../sass/_timer.scss */
+  #timers .large-4 div h2 {
+    margin-top: 10%;
+    text-align: center;
+    font-size: 7vw;
+  }
+  /* line 47, ../../sass/_timer.scss */
+  #timers .large-4 div .success {
+    width: 100%;
+    height: 100%;
+    padding-top: 45%;
+  }
+}
+@media only screen and (max-width: 48em) {
+  /* line 59, ../../sass/_timer.scss */
+  #timers h2 {
+    font-size: 3em;
+    text-align: center;
+  }
+}
+/* line 66, ../../sass/_timer.scss */
 footer {
   text-align: right;
   color: #eee;
 }
-/* line 27, ../../sass/_timer.scss */
+/* line 70, ../../sass/_timer.scss */
 footer hr {
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid white;
   margin-bottom: 0;
 }
-/* line 33, ../../sass/_timer.scss */
+/* line 76, ../../sass/_timer.scss */
 footer p {
   margin-top: 0.2em;
 }
-/* line 36, ../../sass/_timer.scss */
+/* line 79, ../../sass/_timer.scss */
 footer p a {
   color: #ddd;
 }
-/* line 40, ../../sass/_timer.scss */
+/* line 83, ../../sass/_timer.scss */
 footer p a:hover {
   color: #ccc;
 }
-/* line 45, ../../sass/_timer.scss */
+/* line 88, ../../sass/_timer.scss */
 footer #location {
   display: none;
 }
