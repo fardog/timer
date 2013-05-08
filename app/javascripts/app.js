@@ -126,17 +126,19 @@ $(document).ready(function() {
         );
         timer.data('tf', {
             method: function (self) {
-                self.data('tf').ticks--;
-                setTimerDisplay(self, self.data('tf').ticks);
+                var now = new Date();
+                var remainder = 
+                    self.data('tf').finishTime.valueOf() - now.valueOf();
+                setTimerDisplay(self, Math.ceil(remainder / 1000));
 
                 // if we haven't reached zero, re-set our interval
                 // TODO make this calculate actual milliseconds for timeout
-                if (self.data('tf').ticks > 0)
+                if (remainder > 0)
                     setTimeout(function() { 
                         self.data('tf').method(self); 
                     }, 1000)
             },
-            ticks: time,
+            finishTime: new Date(Date.now() + time * 1000),
             canceled: false,
             cancel: function(self) {
                 var parent_row = self.parent();
