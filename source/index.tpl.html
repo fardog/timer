@@ -14,12 +14,22 @@
     <link rel="stylesheet" href="{{ css }}" />
     {% endfor %}
 
+    <!-- faysebewk -->
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:type" content="website"/>
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:url" content="http://timer.fardogllc.com/"/>
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:title" content="Timer, a timed coundtown web application."/>
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:description" content="Set multiple countdown timers, and get an alert when they complete. No ads. No unnecessary junk."/>
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:image" content="/assets/favicons/opengraph-icon.png?type=square"/>
+
     {% for javascript in jinjaconfig.javascripts_header %}
     <script src="{{ javascript }}"></script>
     {% endfor %}
 
-    <link rel="apple-touch-icon-precomposed" href="/assets/images/fzap_clock_sportstudio_design.svg"/>
-    <link rel="icon" href="/assets/images/fzap_clock_sportstudio_design.svg"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/favicons/apple-touch-icon-144x144-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/favicons/apple-touch-icon-114x114-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/favicons/apple-touch-icon-72x72-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" href="/assets/favicons/apple-touch-icon-precomposed.png"/>
+    <link rel="icon" href="/assets/favicons/favicon.ico" type="image/x-icon"/>
     <link type="text/plain" rel="author" href="/humans.txt"/>
 
     <script type="text/javascript">
