@@ -90,9 +90,12 @@ $(document).ready(function() {
 
     //Load our alarm sound
     var alarmSound = new Audio();
-    alarmSound.src = Modernizr.audio.ogg ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.ogg' :
-        Modernizr.audio.mp3 ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.mp3' :
-            'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.m4a';
+    alarmSound.src = 
+        Modernizr.audio.ogg 
+            ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.ogg' :
+        Modernizr.audio.mp3 
+            ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.mp3' :
+              'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.m4a';
     alarmSound.load();
 
     $("#add-timer").submit(function(e) {
@@ -126,17 +129,19 @@ $(document).ready(function() {
         );
         timer.data('tf', {
             method: function (self) {
-                self.data('tf').ticks--;
-                setTimerDisplay(self, self.data('tf').ticks);
+                var now = new Date();
+                var remainder = 
+                    self.data('tf').finishTime.valueOf() - now.valueOf();
+                setTimerDisplay(self, Math.ceil(remainder / 1000));
 
                 // if we haven't reached zero, re-set our interval
                 // TODO make this calculate actual milliseconds for timeout
-                if (self.data('tf').ticks > 0)
+                if (remainder > 0)
                     setTimeout(function() { 
                         self.data('tf').method(self); 
-                    }, 1000)
+                    }, 100)
             },
-            ticks: time,
+            finishTime: new Date(Date.now() + time * 1000),
             canceled: false,
             cancel: function(self) {
                 var parent_row = self.parent();
