@@ -11,3 +11,8 @@ License
 details.
 
 Copyright (c) 2013 Far Dog LLC, http://fardogllc.com/
+
+Acknowledgements
+----------------
+
+- [Alarm Clock Sound](http://www.freesound.org/people/joedeshon/sounds/78562/) by [joedeshon](http://www.freesound.org/people/joedeshon/)
