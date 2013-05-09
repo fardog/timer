@@ -16,9 +16,16 @@ function setTimerDisplay(timer, seconds) {
     var text;
     if (seconds > 0) {
         var minutes = Math.floor(seconds / 60); 
-        text = leadingZero(Math.floor(seconds / 60)) + ":" 
+        var hours = Math.floor(minutes / 60);
+        text = leadingZero(minutes - hours * 60) + ":" 
             + leadingZero(seconds % 60);
-        timer.find("h2").text(text);
+        if (hours > 0) {
+            text = hours.toString() + " hr. <small>" + text + "</small>";
+            timer.find("h2").addClass("hours");
+        }
+        else
+            timer.find("h2").removeClass("hours");
+        timer.find("h2").empty().append(text);
     }
     else { // if we've exhausted our time
         timer.data('tf').sound.play();
@@ -29,6 +36,7 @@ function setTimerDisplay(timer, seconds) {
         panel.animate( { backgroundColor: "#31ff3f" }, 1000);
         var cancel_button = timer.find("a.cancel");
         cancel_button.text("Dismiss");
+        cancel_button.removeClass("cancel");
         cancel_button.addClass("large success expand");
         timer.find("h2").remove();
     }
