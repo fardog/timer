@@ -93,6 +93,14 @@ function reorganizeTimers() {
     });
 }
 
+function setError(textInput, message) {
+    textInput.parent().addClass("error");
+    textInput.parent().children("small").remove();
+    textInput.parent().append(
+            $("<small>", { 'text': message })    
+    );
+}
+
 $(document).ready(function() {
     $("#time").focus();
 
@@ -115,12 +123,12 @@ $(document).ready(function() {
             var time = juration.parse(rawInput); 
         }
         catch (e) {
-            if (!textInput.parent().hasClass("error")) {
-                textInput.parent().addClass("error");
-                textInput.parent().append(
-                    $("<small>", { 'text': "Your time wasn't understood." })    
-                );
-            }
+            setError(textInput, "Sorry, we didn't understand that. Try again?");
+            return;
+        }
+
+        if (time > 60*60*100 - 1) {
+            setError(textInput, "That's a long time! Try a smaller span.");
             return;
         }
 
