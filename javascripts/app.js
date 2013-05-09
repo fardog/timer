@@ -151,7 +151,6 @@ $(document).ready(function() {
                 setTimerDisplay(self, Math.ceil(remainder / 1000));
 
                 // if we haven't reached zero, re-set our interval
-                // TODO make this calculate actual milliseconds for timeout
                 if (remainder > 0)
                     setTimeout(function() { 
                         self.data('tf').method(self); 
