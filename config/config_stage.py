@@ -14,3 +14,8 @@ javascripts_footer = [
         "/javascripts/footer.{date}.min.js",
         ]
 
+minify_names = {
+        'css': "/stylesheets/app.{date}.min.css",
+        'javascripts_header': "/javascripts/header.{date}.min.js",
+        'javascripts_footer': "/javascripts/footer.{date}.min.js",
+        }

@@ -1,5 +1,6 @@
 from __future__ import print_function
 import datetime
+import os
 
 from fabric.operations import local, run
 from fabric.context_managers import cd, lcd
@@ -65,17 +66,31 @@ def process_templates(source_path, dest_path, config):
                     output_file))
 
 
-def minify():
-    for files in (config_dev.css, config_dev.javascripts_header,
-            config_dev.javascripts_footer):
+def minify(minify_names, date):
+    for files,minify_name in (
+            (config_dev.css, minify_names["css"]),
+            (config_dev.javascripts_header, minify_names["javascripts_header"]),
+            (config_dev.javascripts_footer, minify_names["javascripts_footer"])
+            ):
         unminified_files = []
         minified_files = []
+        minify_name = minify_name.format(date=date)
+        if minify_name[0] == '/':
+            minify_name = minify_name[1:]
         for file_name in files:
             if '//' in file_name:  # this is a URL and we shouldn't minify
                 unminified_files.append(file_name)
             else:  # we need to minify
-                with lcd("stage"):
+                if file_name[0] == '/':
+                    file_name = file_name[1:]
+                with lcd(os.path.join("stage/",os.path.dirname(file_name))):
                     print("minifying {0}".format(file_name))
+                    local("yuglify {0}".format(os.path.basename(file_name)))
+                    minified_files.append(file_name)
+                with lcd("stage/"):
+                    file_name = file_name.replace(".css", ".min.css")
+                    file_name = file_name.replace(".js", ".min.js")
+                    local("cat {0} >> {1}".format(file_name, minify_name))
 
 
 def process_file_groups(groups,
@@ -88,7 +103,7 @@ def process_file_groups(groups,
         temp_group = { str(k): processed_individuals }
         processed_groups.update(temp_group)
 
-    return processed_groups
+    return processed_groups, date
 
 
 def prepare_deploy():
@@ -101,15 +116,18 @@ def prepare_deploy():
             "javascripts_header": config_stage.javascripts_header,
             "javascripts_footer": config_stage.javascripts_footer
             }
-    processed_groups = process_file_groups(asset_groups)
+    processed_groups, date = process_file_groups(asset_groups)
 
     process_templates(config_stage.source_path,
             config_stage.dest_path,
             config=processed_groups)
 
+    minify(config_stage.minify_names, date)
+
+
 def deploy():
     make_favicons()
-    local("cp -fR app/* deploy/")
+    local("cp -fR stage/* deploy/")
     with lcd("deploy"):
         local("git add .")
         local("git commit -a -m 'Update %s'" % datetime.datetime.now())
