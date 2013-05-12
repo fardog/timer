@@ -10,6 +10,7 @@
     <title>Timer, a timed countdown web application.</title>
 
     <link href='//fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'/>
+    
     {% for css in jinjaconfig.css %}
     <link rel="stylesheet" href="{{ css }}" />
     {% endfor %}
@@ -21,6 +22,7 @@
     <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:description" content="Set multiple countdown timers, and get an alert when they complete. No ads. No unnecessary junk."/>
     <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:image" content="http://timer.fardogllc.com/assets/favicons/opengraph-icon.png?type=square"/>
 
+    
     {% for javascript in jinjaconfig.javascripts_header %}
     <script src="{{ javascript }}"></script>
     {% endfor %}
