@@ -14,20 +14,9 @@ function leadingZero(value) {
  */
 function setTimerDisplay(timer, seconds) {
     var text;
-    if (seconds > 0) {
-        var minutes = Math.floor(seconds / 60); 
-        var hours = Math.floor(minutes / 60);
-        text = leadingZero(minutes - hours * 60) + ":" 
-            + leadingZero(seconds % 60);
-        if (hours > 0) {
-            text = hours.toString() + " hr. <small>" + text + "</small>";
-            timer.find("h2").addClass("hours");
-        }
-        else
-            timer.find("h2").removeClass("hours");
-        timer.find("h2").empty().append(text);
-    }
-    else { // if we've exhausted our time
+    var prefix = "";
+    if (seconds < 0 && !timer.hasClass("done")) { // if we've exhausted our time
+        timer.addClass("done");
         timer.data('tf').sound.play();
 
         //set various styles and text
@@ -35,11 +24,37 @@ function setTimerDisplay(timer, seconds) {
         var panel = timer.find(".panel");
         panel.animate( { backgroundColor: "#31ff3f" }, 1000);
         var cancel_button = timer.find("a.cancel");
-        cancel_button.text("Dismiss");
+        cancel_button.text("Clear");
         cancel_button.removeClass("cancel");
         cancel_button.addClass("large success expand");
-        timer.find("h2").remove();
+		timer.children("div").append(
+			$("<a>", { 'text': "Silence",
+					   'href': "#",
+					   'class': "large alert button expand" }).click(function(e) {
+				e.preventDefault();
+				timer.data('tf').silence(timer);
+				$(this).text("Silenced");
+				$(this).addClass("disabled");
+			})
+		);
     }
+
+    if (seconds < 0) {
+        seconds = 0 - seconds;
+        prefix = "+";
+    }
+
+    var minutes = Math.floor(seconds / 60); 
+    var hours = Math.floor(minutes / 60);
+    text = leadingZero(minutes - hours * 60) + ":" 
+        + leadingZero(seconds % 60);
+    if (hours > 0) {
+        text = hours.toString() + " hr. <small>" + text + "</small>";
+        timer.find("h2").addClass("hours");
+    }
+    else
+        timer.find("h2").removeClass("hours");
+    timer.find("h2").empty().append(prefix + text);
 
     
 }
@@ -151,10 +166,9 @@ $(document).ready(function() {
                 setTimerDisplay(self, Math.ceil(remainder / 1000));
 
                 // if we haven't reached zero, re-set our interval
-                if (remainder > 0)
-                    setTimeout(function() { 
-                        self.data('tf').method(self); 
-                    }, 100)
+                setTimeout(function() { 
+                    self.data('tf').method(self); 
+                });
             },
             finishTime: new Date(Date.now() + time * 1000),
             canceled: false,
@@ -168,7 +182,10 @@ $(document).ready(function() {
                     reorganizeTimers();
                 });
             },
-            snooze: function(self) {
+			silenced: false,
+            silence: function(self) {
+				self.data('tf').sound.pause();
+				self.data('tf').silenced = true;
             },
             sound: alarmSound.cloneNode(true)
         });
@@ -187,6 +204,7 @@ $(document).ready(function() {
                 timer.data('tf').cancel(timer);
             })
         );
+		
         addTimerToDOM(timer);
     });
 });
