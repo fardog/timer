@@ -1,7 +1,13 @@
+/* Copyright (c) 2013 Far Dog LLC and Nathan Wittstock (http://www.fardogllc.com/)
+ * Licensed under an MIT license. The the attached LICENSE.txt for details. 
+ */
+
 $(document).foundation();
 
 var COLUMN_VALUE = 4;
 var COLUMN_TOTAL = 12;
+
+var alarmSound = new Audio();
 
 /* leadingZero: put zeroes in front of decimal values that are less than ten */
 function leadingZero(value) {
@@ -116,96 +122,105 @@ function setError(textInput, message) {
     );
 }
 
+function createTimer(time) {
+	
+	var timer = $('<div>', { 'class': "timer large-" + COLUMN_VALUE + " columns" }).append( 
+		$('<div>', { 'class': "panel" }).append(
+			$('<h2>', { 'text': time })
+		)
+	);
+	timer.data('tf', {
+		method: function (self) {
+			var now = new Date();
+			var remainder = 
+				self.data('tf').finishTime.valueOf() - now.valueOf();
+			setTimerDisplay(self, Math.ceil(remainder / 1000));
+
+			// if we haven't reached zero, re-set our interval
+			setTimeout(function() { 
+				self.data('tf').method(self); 
+			});
+		},
+		finishTime: new Date(Date.now() + time * 1000),
+		canceled: false,
+		cancel: function(self) {
+			var parent_row = self.parent();
+			self.data('tf').sound.pause();
+			self.data('tf').canceled = true; 
+			self.fadeOut(400, function() { 
+				self.remove(); 
+				if (parent_row.children().length < 1) parent_row.remove();
+				reorganizeTimers();
+			});
+		},
+		silenced: false,
+		silence: function(self) {
+			self.data('tf').sound.pause();
+			self.data('tf').silenced = true;
+		},
+		sound: alarmSound.cloneNode(true)
+	});
+
+	// set initial display and start timer
+	setTimerDisplay(timer, time);
+	setTimeout(function() { 
+		timer.data('tf').method(timer);
+	}, 1000);
+
+	timer.children("div").append(
+		$("<a>", { 'text': "Cancel", 
+					'href': "#",
+					'class': "large cancel button expand" }).click(function(e) {
+			e.preventDefault();
+			timer.data('tf').cancel(timer);
+		})
+	);
+	
+	addTimerToDOM(timer);
+}
+
 $(document).ready(function() {
     $("#time").focus();
 
-    //Load our alarm sound
-    var alarmSound = new Audio();
+	//Load our alarm sound
     alarmSound.src = 
-        Modernizr.audio.ogg 
-            ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.ogg' :
-        Modernizr.audio.mp3 
-            ? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.mp3' :
-              'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.m4a';
-    alarmSound.load();
+		Modernizr.audio.ogg 
+			? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.ogg' :
+		Modernizr.audio.mp3 
+			? 'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.mp3' :
+			  'assets/sounds/78562__joedeshon__alarm-clock-ringing-01.m4a';
+	alarmSound.load();
 
-    $("#add-timer").submit(function(e) {
-        e.preventDefault();
-        var textInput = $(this).find("input:text"); 
-        var rawInput = textInput.val();
+	var getTimers = $(document).getUrlParam("timers");
+	//console.log(getTimers);
+	
 
-        try {
-            var time = juration.parse(rawInput); 
-        }
-        catch (e) {
-            setError(textInput, "Sorry, we didn't understand that. Try again?");
-            return;
-        }
+	//When the add-timer button is clicked, parse input and set timer if valid
+    $("#add-timer").submit(function (e) {
+		e.preventDefault();
+		var textInput = $(this).find("input:text"); 
+		var rawInput = textInput.val();
 
-        if (time > 60*60*100 - 1) {
-            setError(textInput, "That's a long time! Try a smaller span.");
-            return;
-        }
+		try {
+			var time = juration.parse(rawInput); 
+		}
+		catch (e) {
+			setError(textInput, "Sorry, we didn't understand that. Try again?");
+			return;
+		}
 
-        // Remove the error state if there is one, we were successful this time
-        if (textInput.parent().hasClass("error")) { 
-            textInput.parent().removeClass("error"); 
-            textInput.parent().children("small").remove();
-        }
+		if (time > 60*60*100 - 1) {
+			setError(textInput, "That's a long time! Try a smaller span.");
+			return;
+		}
 
-        var timer = $('<div>', { 'class': "timer large-" + COLUMN_VALUE + " columns" }).append( 
-            $('<div>', { 'class': "panel" }).append(
-                $('<h2>', { 'text': time })
-            )
-        );
-        timer.data('tf', {
-            method: function (self) {
-                var now = new Date();
-                var remainder = 
-                    self.data('tf').finishTime.valueOf() - now.valueOf();
-                setTimerDisplay(self, Math.ceil(remainder / 1000));
+		// Remove the error state if there is one, we were successful this time
+		if (textInput.parent().hasClass("error")) { 
+			textInput.parent().removeClass("error"); 
+			textInput.parent().children("small").remove();
+		}
 
-                // if we haven't reached zero, re-set our interval
-                setTimeout(function() { 
-                    self.data('tf').method(self); 
-                });
-            },
-            finishTime: new Date(Date.now() + time * 1000),
-            canceled: false,
-            cancel: function(self) {
-                var parent_row = self.parent();
-                self.data('tf').sound.pause();
-                self.data('tf').canceled = true; 
-                self.fadeOut(400, function() { 
-                    self.remove(); 
-                    if (parent_row.children().length < 1) parent_row.remove();
-                    reorganizeTimers();
-                });
-            },
-			silenced: false,
-            silence: function(self) {
-				self.data('tf').sound.pause();
-				self.data('tf').silenced = true;
-            },
-            sound: alarmSound.cloneNode(true)
-        });
-
-        // set initial display and start timer
-        setTimerDisplay(timer, time);
-        setTimeout(function() { 
-            timer.data('tf').method(timer);
-        }, 1000);
-
-        timer.children("div").append(
-            $("<a>", { 'text': "Cancel", 
-                       'href': "#",
-                       'class': "large cancel button expand" }).click(function(e) {
-                e.preventDefault();
-                timer.data('tf').cancel(timer);
-            })
-        );
-		
-        addTimerToDOM(timer);
-    });
+		createTimer(time);
+	});
 });
 
