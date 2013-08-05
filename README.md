@@ -11,7 +11,6 @@ There are a number of features I'd like to add to *Timer* when I get around to i
 
 - Ability to set timers via GET variables
 - Optional resume timers after closing a window
-- Time elapsed since a timer finished
 - Start/Pause
 - Optional ability to name a timer
 - Optional silent timer

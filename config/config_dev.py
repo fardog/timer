@@ -15,6 +15,7 @@ javascripts_footer = [
         "/javascripts/foundation/foundation.js",
         "/javascripts/vendor/juration.js",
         "/javascripts/vendor/jquery.color.js",
+	"/javascripts/vendor/jquery.getUrlParam.js",
         "/javascripts/app.js",
         ]
 
