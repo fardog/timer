@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="320px"
+	 height="320px" viewBox="0 0 320 320" enable-background="new 0 0 320 320" xml:space="preserve">
+<g id="Frame">
+	<g>
+		<rect fill="#2484A1" width="320" height="320"/>
+	</g>
+	<rect x="10" y="10" fill="#2AA6CB" width="300" height="300"/>
+	<rect x="10" y="10" fill="#94D1E3" width="300" height="10"/>
+	<rect x="40" y="50" fill="#2484A1" width="240" height="230"/>
+	<rect x="50" y="60" fill="#FFFFFF" width="220" height="210"/>
+</g>
+<g id="Layer_2">
+	<rect x="230" y="160" fill="#61585A" width="30" height="10"/>
+	<rect x="60" y="160" fill="#91888C" width="30" height="10"/>
+	<rect x="155" y="70" fill="#AC9EA3" width="10" height="30"/>
+	<rect x="155" y="230" fill="#7B7275" width="10" height="30"/>
+	<g>
+		<polygon fill="#3A3536" points="163.652,170.498 156.348,163.672 214.541,101.45 221.846,108.276 		"/>
+	</g>
+	<g>
+		<polygon fill="#3A3536" points="183.867,208.76 155.942,170.01 164.058,164.16 191.973,202.92 		"/>
+	</g>
+	<rect x="152.5" y="157.5" fill="#3A3536" width="15" height="15"/>
+</g>
+</svg>

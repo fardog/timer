@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="user-scalable=0" />
+    <meta name="description" content="Set multiple countdown timers, and get an alert when they complete. No ads. No unnecessary junk." />
+    <title>Timer, a timed countdown web application.</title>
+
+    <link href='//fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'/>
+    
+    
+    <link rel="stylesheet" href="/stylesheets/app.20130809131118.min.css" />
+    
+
+    <!-- faysebewk -->
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:type" content="website"/>
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:url" content="http://timer.fardogllc.com/"/>
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:title" content="Timer, a timed countdown web application."/>
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:description" content="Set multiple countdown timers, and get an alert when they complete. No ads. No unnecessary junk."/>
+    <meta xmlns:og="http://opengraphprotocol.org/schema/" property="og:image" content="http://timer.fardogllc.com/assets/favicons/opengraph-icon.png?type=square"/>
+
+    
+    
+    <script src="phonegap.js"></script>
+    
+    <script src="/javascripts/header.20130809131118.min.js"></script>
+    
+
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/favicons/apple-touch-icon-144x144-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/favicons/apple-touch-icon-114x114-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/favicons/apple-touch-icon-72x72-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" href="/assets/favicons/apple-touch-icon-precomposed.png"/>
+    <link rel="icon" href="/assets/favicons/favicon.ico" type="image/x-icon"/>
+    <link type="text/plain" rel="author" href="/humans.txt"/>
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36126014-5']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+
+    </script>
+
+</head>
+<body>
+
+    <header class="row">
+        <div class="large-7 columns">
+            <h1>Timer</h1>
+        </div>
+        <div class="large-5 columns">
+            <form id="add-timer">
+                <div class="row collapse">
+                    <div class="large-9 columns">
+                        <input type="text" id="time" 
+                         placeholder="Time, e.g. '4 minutes 10 seconds'" />
+                    </div>
+                    <div class="large-3 columns">
+                        <input type="submit" id="addTimer" 
+                         class="postfix button" value="Add Timer" />
+                    </div>
+                </div>
+            </form>
+        </div> 
+    </header>
+
+    <div id="intro" class="row">
+        <div class="large-6 large-centered columns">
+            <h2>Add some timers!</h2>
+            <p>Use the input above to add them. It's right up there.</p>
+            <p><span class="round alert label">Note:</span> Timer uses some <a href="http://www.html5rocks.com/">HTML5</a> features, and will only work correctly on current browsers.</p>
+        </div>
+    </div>
+
+    <div id="timers">
+        
+
+    </div>
+
+    <footer class="row">
+        <div class="large-12 columns">
+            <hr/>
+            <p>2013
+                <a href="http://fardogllc.com/" target="_blank">Far Dog LLC</a> :: 
+                <a href="http://github.com/fardog/timer/" target="_blank">Open Source</a>
+            </p>
+        </div>
+    </footer>
+    
+    
+    <script src="/javascripts/vendor/jquery.min.js"></script>
+    
+    <script src="/javascripts/footer.20130809131118.min.js"></script>
+    
+    </body>
+</html>

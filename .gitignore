@@ -2,6 +2,7 @@
 javascripts/vendor/*/
 stage/
 deploy/
+platforms/
 
 *.pyo
 *.pyc

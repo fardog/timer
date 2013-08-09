@@ -8,7 +8,7 @@ from pathtools import path
 from pathtools import patterns
 from jinja2 import Template
 
-from config import config_dev, config_stage
+from config import config_dev, config_stage, config_phonegap
 from jinja import JinjaTemplateProcessor
 
 
@@ -66,11 +66,11 @@ def process_templates(source_path, dest_path, config):
                     output_file))
 
 
-def minify(minify_names, date):
+def minify(minify_names, minify_files, date, source_dir="stage/"):
     for files,minify_name in (
-            (config_dev.css, minify_names["css"]),
-            (config_dev.javascripts_header, minify_names["javascripts_header"]),
-            (config_dev.javascripts_footer, minify_names["javascripts_footer"])
+            (minify_files.css, minify_names["css"]),
+            (minify_files.javascripts_header, minify_names["javascripts_header"]),
+            (minify_files.javascripts_footer, minify_names["javascripts_footer"])
             ):
         unminified_files = []
         minified_files = []
@@ -83,11 +83,11 @@ def minify(minify_names, date):
             else:  # we need to minify
                 if file_name[0] == '/':
                     file_name = file_name[1:]
-                with lcd(os.path.join("stage/",os.path.dirname(file_name))):
+                with lcd(os.path.join(source_dir,os.path.dirname(file_name))):
                     print("minifying {0}".format(file_name))
                     local("yuglify {0}".format(os.path.basename(file_name)))
                     minified_files.append(file_name)
-                with lcd("stage/"):
+                with lcd(source_dir):
                     file_name = file_name.replace(".css", ".min.css")
                     file_name = file_name.replace(".js", ".min.js")
                     local("cat {0} >> {1}".format(file_name, minify_name))
@@ -122,7 +122,23 @@ def prepare_deploy():
             config_stage.dest_path,
             config=processed_groups)
 
-    minify(config_stage.minify_names, date)
+    minify(config_stage.minify_names, config_dev, date, source_dir="stage/")
+
+
+def prepare_phonegap():
+    local("cp -fR app/* www/")
+    asset_groups = {
+            "css": config_phonegap.css,
+            "javascripts_header": config_phonegap.javascripts_header,
+            "javascripts_footer": config_phonegap.javascripts_footer
+            }
+    processed_groups, date = process_file_groups(asset_groups)
+
+    process_templates(config_phonegap.source_path,
+            config_phonegap.dest_path,
+            config=processed_groups)
+
+    minify(config_phonegap.minify_names, config_dev, date, source_dir="www/")
 
 
 def deploy():
@@ -132,3 +148,4 @@ def deploy():
         local("git add .")
         local("git commit -a -m 'Update %s'" % datetime.datetime.now())
         local("git push origin gh-pages")
+
